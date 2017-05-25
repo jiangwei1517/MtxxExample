@@ -2,6 +2,7 @@ package com.jiangwei.mtxxexample;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtn1.setOnClickListener(this);
         mBtn2.setOnClickListener(this);
         mBtn3.setOnClickListener(this);
+        Report report = new Report();
+        report.report("/data/data/" + getPackageName(), Build.VERSION.SDK_INT);
+        report.callDialog(this);
     }
 
     private void xxImage(final Bitmap bitmap, final JNI jni, final String method) {

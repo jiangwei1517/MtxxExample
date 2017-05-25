@@ -13,13 +13,26 @@ model {
 
         defaultConfig {
             // 取值必须使用 “=” 形式
-            applicationId = "com.jiangwei.jnitest"
+            applicationId = "com.jiangweimtxx.mtxx"
             //这里要注意是 xxSdkVersion.apiLevel
             // 否则会报 “Unable to load class com.android.build.gradle.managed.ProductFlavor_Impl”错误
             minSdkVersion.apiLevel = 15
             targetSdkVersion.apiLevel = 22
             versionCode = 1
             versionName = "1.0"
+        }
+        ndk {
+            // 生成so的名字，是必须的
+            moduleName ="report"
+            toolchain = 'clang'
+            cppFlags.add("-std=c++11")
+            // 添加依赖库
+            ldLibs.addAll(['android','OpenSLES', 'log', 'z', "EGL", "GLESv2", "dl"])
+            // 生成不同abi体系的so库
+            abiFilters.addAll(['armeabi', 'armeabi-v7a', 'arm64-v8a',
+                               'x86', 'x86_64',
+                               'mips', 'mips64'])
+            stl = "gnustl_shared"
         }
         buildTypes {
             release {
