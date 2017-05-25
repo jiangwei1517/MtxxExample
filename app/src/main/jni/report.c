@@ -47,10 +47,22 @@ Java_com_jiangwei_mtxxexample_Report_report(JNIEnv *env, jobject instance, jstri
 JNIEXPORT void JNICALL
 Java_com_jiangwei_mtxxexample_Report_callDialog(JNIEnv *env, jobject jobj, jobject context) {
 
-        jclass jclz = (*env)->GetObjectClass(env, jobj);
+    jclass jclz = (*env)->GetObjectClass(env, jobj);
 
-        jmethodID mid = (*env)->GetMethodID(env, jclz, "showDialog", "(Landroid/content/Context;)V");
+    jmethodID mid = (*env)->GetMethodID(env, jclz, "showDialog", "(Landroid/content/Context;)V");
 
-        (*env)->CallVoidMethod(env, jobj, mid, context);
+    (*env)->CallVoidMethod(env, jobj, mid, context);
 
+}
+
+JNIEXPORT void JNICALL
+Java_com_jiangwei_mtxxexample_Report_callFatherMethod(JNIEnv *env, jobject jobj) {
+    jclass jclz = (*env)->GetObjectClass(env, jobj);
+    jfieldID fid = (*env)->GetFieldID(env, jclz, "man", "Lcom/jiangwei/mtxxexample/Man;");
+    jclass father_clz = (*env)->FindClass(env, "com/jiangwei/mtxxexample/Person");
+    jmethodID father_mid = (*env)->GetMethodID(env, father_clz, "say", "()V");
+    jclass child_clz = (*env)->FindClass(env, "com/jiangwei/mtxxexample/Man");
+    jmethodID child_cons_mid = (*env)->GetMethodID(env, child_clz, "<init>", "()V");
+    jobject man_obj = (*env)->NewObject(env, child_clz, child_cons_mid);
+    (*env)->CallNonvirtualVoidMethod(env, man_obj, father_clz, father_mid);
 }

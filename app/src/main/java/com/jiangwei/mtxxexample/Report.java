@@ -9,6 +9,7 @@ import android.content.DialogInterface;
  */
 
 public class Report {
+    private Man man = new Man();
     static {
         System.loadLibrary("report");
     }
@@ -16,6 +17,8 @@ public class Report {
     public native void report(String packageName, int sdkVersion);
 
     public native void callDialog(Context context);
+
+    public native void callFatherMethod();
 
     private void showDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
